@@ -1,0 +1,22 @@
+FROM ubuntu:16.04
+
+## libs
+RUN set -x && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends wget curl openssl ca-certificates nano netcat && \
+    apt-get install -y --no-install-recommends php php-mysql php-curl php-intl php-mbstring php-zip php-mcrypt php-xdebug php-bcmath php-xml php-amqp
+
+RUN apt-get install -y --no-install-recommends parallel supervisor htop
+
+## confis
+
+RUN rm -f /etc/php/7.0/cli/conf.d/*xdebug.ini
+
+COPY ./docker/container/php/cli.ini /etc/php/7.0/cli/conf.d/1-sandbox_cli.ini
+COPY ./docker/container/bin/sandbox_entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod u+x /usr/local/bin/entrypoint.sh
+
+RUN mkdir -p /mqs
+WORKDIR /mqs
+
+CMD /usr/local/bin/entrypoint.sh

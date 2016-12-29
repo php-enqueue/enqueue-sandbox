@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -x
+set -e
+
+while getopts "buse" OPTION; do
+  case $OPTION in
+    b)
+      COMPOSE_PROJECT_NAME=mqs docker-compose build
+      ;;
+    u)
+      COMPOSE_PROJECT_NAME=mqs docker-compose up
+      ;;
+    s)
+      COMPOSE_PROJECT_NAME=mqs docker-compose stop
+      ;;
+    e)
+      COMPOSE_PROJECT_NAME=mqs docker exec -it mqs_sandbox_1 env TERM=xterm /bin/bash
+      ;;
+
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done

@@ -1,0 +1,106 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    fos_elastica.provider.prototype.orm.class: 'AppBundle\Elasticsearch\AsyncProvider'
+
+framework:
+    #esi:             ~
+    #translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%db.host%"
+        port:     "%db.port%"
+        dbname:   "%db.name%"
+        user:     "%db.user%"
+        password: "%db.password%"
+        charset:  'UTF8'
+        server_version: 5.7
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+enqueue:
+    transport:
+        default: 'amqp'
+        amqp:
+            host: '%rabbitmq.host%'
+            port: '%rabbitmq.amqp.port%'
+            login: '%rabbitmq.user%'
+            password: '%rabbitmq.password%'
+            vhost: '%rabbitmq.vhost%'
+    client:
+        prefix: 'mqs'
+        app_name: 'enqueue'
+        router_topic: 'router'
+        router_queue: 'router'
+        default_processor_queue: 'default'
+
+fos_elastica:
+    clients:
+        default: { host: %elasticsearch.host%, port: %elasticsearch.port% }
+    indexes:
+        app:
+            index_name: app_%kernel.environment%
+            types:
+                blog:
+                    mappings:
+                        text: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Blog
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
+services:
+  app.async.say_hello_processor:
+    class: 'AppBundle\Async\SayHelloProcessor'
+    tags:
+        - { name: 'enqueue.client.message_processor' }
+
+  app.async.elastica_populate_processor:
+      class: 'AppBundle\Async\ElasticaPopulateProcessor'
+      arguments:
+          - '@fos_elastica.provider_registry'

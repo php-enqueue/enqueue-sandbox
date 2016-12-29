@@ -1,0 +1,17 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     %env(MYSQL_HOST)%
+    database_port:     %env(MYSQL_PORT)%
+    database_name:     %env(MYSQL_DATABASE)%
+    database_user:     %env(MYSQL_USER)%
+    database_password: %env(MYSQL_PASSWORD)%
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+    rabbitmq_host: %env(RABBITMQ_HOST)%
+    rabbitmq_user: %env(RABBITMQ_USER)%
+    rabbitmq_port: %env(RABBITMQ_PORT)%
+    rabbitmq_password: %env(RABBITMQ_PASSWORD)%
+    rabbitmq_vhost: %env(RABBITMQ_VHOST)%
