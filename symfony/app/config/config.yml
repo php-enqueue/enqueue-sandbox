@@ -42,11 +42,11 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_mysql
-        host:     "%db.host%"
-        port:     "%db.port%"
-        dbname:   "%db.name%"
-        user:     "%db.user%"
-        password: "%db.password%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  'UTF8'
         server_version: 5.7
         # if using pdo_sqlite as your database driver:
@@ -65,11 +65,11 @@ enqueue:
     transport:
         default: 'amqp'
         amqp:
-            host: '%rabbitmq.host%'
-            port: '%rabbitmq.amqp.port%'
-            login: '%rabbitmq.user%'
-            password: '%rabbitmq.password%'
-            vhost: '%rabbitmq.vhost%'
+            host: '%rabbitmq_host%'
+            port: '%rabbitmq_port%'
+            login: '%rabbitmq_user%'
+            password: '%rabbitmq_password%'
+            vhost: '%rabbitmq_vhost%'
     client:
         prefix: 'mqs'
         app_name: 'enqueue'
@@ -79,7 +79,7 @@ enqueue:
 
 fos_elastica:
     clients:
-        default: { host: %elasticsearch.host%, port: %elasticsearch.port% }
+        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
     indexes:
         app:
             index_name: app_%kernel.environment%

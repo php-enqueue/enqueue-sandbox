@@ -12,20 +12,19 @@ services:
       - /mqs/symfony/var
     environment:
       - HISTFILE=/shared/.bash_history
-      - SYMFONY__RABBITMQ__HOST=rabbitmq
-      - SYMFONY__RABBITMQ__USER=guest
-      - SYMFONY__RABBITMQ__PASSWORD=guest
-      - SYMFONY__RABBITMQ__VHOST=mqs
-      - SYMFONY__RABBITMQ__AMQP__PORT=5672
-      - SYMFONY__RABBITMQ__STOMP__PORT=61613
-      - SYMFONY__DB__DRIVER=pdo_mysql
-      - SYMFONY__DB__HOST=mysql
-      - SYMFONY__DB__PORT=3306
-      - SYMFONY__DB__NAME=mqs
-      - SYMFONY__DB__USER=root
-      - SYMFONY__DB__PASSWORD=rootpass
-      - SYMFONY__ELASTICSEARCH__HOST=elasticsearch
-      - SYMFONY__ELASTICSEARCH__PORT=9200
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_VHOST=mqs
+      - RABBITMQ_PORT=5672
+      - MYSQL_DRIVER=pdo_mysql
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_NAME=mqs
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=rootpass
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
   mysql:
     image: mariadb:10
     volumes:

@@ -15,3 +15,6 @@ parameters:
     rabbitmq_port: %env(RABBITMQ_PORT)%
     rabbitmq_password: %env(RABBITMQ_PASSWORD)%
     rabbitmq_vhost: %env(RABBITMQ_VHOST)%
+
+    elasticsearch_host: %env(ELASTICSEARCH_HOST)%
+    elasticsearch_port: %env(ELASTICSEARCH_PORT)%
