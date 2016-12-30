@@ -29,3 +29,7 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
+
+enqueue:
+    client:
+        traceable_producer: true

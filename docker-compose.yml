@@ -20,11 +20,13 @@ services:
       - MYSQL_DRIVER=pdo_mysql
       - MYSQL_HOST=mysql
       - MYSQL_PORT=3306
-      - MYSQL_NAME=mqs
+      - MYSQL_DATABASE=mqs
       - MYSQL_USER=root
       - MYSQL_PASSWORD=rootpass
       - ELASTICSEARCH_HOST=elasticsearch
       - ELASTICSEARCH_PORT=9200
+    ports:
+      - "81:80"
   mysql:
     image: mariadb:10
     volumes:
