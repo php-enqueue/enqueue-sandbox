@@ -7,7 +7,6 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-    fos_elastica.provider.prototype.orm.class: 'AppBundle\Elasticsearch\AsyncProvider'
 
 framework:
     #esi:             ~
@@ -77,30 +76,8 @@ enqueue:
         router_queue: 'router'
         default_processor_queue: 'default'
 
-fos_elastica:
-    clients:
-        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
-    indexes:
-        app:
-            index_name: app_%kernel.environment%
-            types:
-                blog:
-                    mappings:
-                        text: ~
-                    persistence:
-                        driver: orm
-                        model: AppBundle\Entity\Blog
-                        provider: ~
-                        listener:
-                            immediate: ~
-                        finder: ~
 services:
   app.async.say_hello_processor:
     class: 'AppBundle\Async\SayHelloProcessor'
     tags:
         - { name: 'enqueue.client.message_processor' }
-
-  app.async.elastica_populate_processor:
-      class: 'AppBundle\Async\ElasticaPopulateProcessor'
-      arguments:
-          - '@fos_elastica.provider_registry'

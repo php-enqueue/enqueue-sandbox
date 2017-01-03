@@ -25,9 +25,7 @@
         "enqueue/amqp-ext": "*",
         "enqueue/enqueue-bundle": "*",
         "enqueue/job-queue": "*",
-        "enqueue/test": "*",
-        "friendsofsymfony/elastica-bundle": "^3",
-        "fzaninotto/faker": "^1.6"
+        "enqueue/test": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
