@@ -8,10 +8,10 @@ Contains a docker container and symfony app.
 ```
 git clone git@github.com:php-enqueue/enqueue-sandbox.git
 cd enqueue-sandbox
-git submodule init; git submodule update 
+git submodule init; git submodule update
+./bin/sandbox -b
 cd symfony
 composer install
-./bin/sandbox -b
 ```
 
 ## Usage
