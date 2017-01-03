@@ -2,7 +2,6 @@
     "name": "enqueue/message-queue-sandbox",
     "license": "MIT",
     "type": "project",
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
@@ -19,13 +18,16 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "enqueue/psr-queue": "*",
-        "enqueue/enqueue": "*",
-        "enqueue/stomp": "*",
-        "enqueue/amqp-ext": "*",
-        "enqueue/enqueue-bundle": "*",
-        "enqueue/job-queue": "*",
-        "enqueue/test": "*"
+        "enqueue/psr-queue": "dev-master",
+        "enqueue/enqueue": "dev-master",
+        "enqueue/stomp": "dev-master",
+        "enqueue/amqp-ext": "dev-master",
+        "enqueue/enqueue-bundle": "dev-master",
+        "enqueue/job-queue": "dev-master",
+        "enqueue/test": "dev-master",
+        "friendsofsymfony/elastica-bundle": "^3",
+        "enqueue/elastica-bundle": "dev-master",
+        "fzaninotto/faker": "^1.6"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

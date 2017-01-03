@@ -76,6 +76,22 @@ enqueue:
         router_queue: 'router'
         default_processor_queue: 'default'
 
+fos_elastica:
+    clients:
+        default: { host: %elasticsearch_host%, port: %elasticsearch_port% }
+    indexes:
+        app:
+            index_name: app_%kernel.environment%
+            types:
+                blog:
+                    mappings:
+                        text: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Blog
+                        provider: ~
+                        listener: ~
+                        finder: ~
 services:
   app.async.say_hello_processor:
     class: 'AppBundle\Async\SayHelloProcessor'
