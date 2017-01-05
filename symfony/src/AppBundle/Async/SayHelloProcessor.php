@@ -2,12 +2,12 @@
 namespace AppBundle\Async;
 
 use Enqueue\Client\TopicSubscriberInterface;
-use Enqueue\Consumption\MessageProcessorInterface;
 use Enqueue\Consumption\Result;
 use Enqueue\Psr\Context;
 use Enqueue\Psr\Message;
+use Enqueue\Psr\Processor;
 
-class SayHelloProcessor implements MessageProcessorInterface, TopicSubscriberInterface
+class SayHelloProcessor implements Processor, TopicSubscriberInterface
 {
     /**
      * {@inheritdoc}
