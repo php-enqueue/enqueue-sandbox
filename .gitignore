@@ -1,4 +1,4 @@
 .idea
 symfony/vendor
-./docker/shared/.*
+docker/shared/.bash_history
 dev
