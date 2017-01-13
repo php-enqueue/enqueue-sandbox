@@ -44,10 +44,6 @@ services:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
       - RABBITMQ_DEFAULT_VHOST=mqs
-  elasticsearch:
-    build: { context: ., dockerfile: Dockerfile.elasticsearch }
-    ports:
-      - "9201:9200"
 
 volumes:
   mysql-data:
