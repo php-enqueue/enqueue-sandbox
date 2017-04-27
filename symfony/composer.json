@@ -18,16 +18,20 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "enqueue/psr-queue": "dev-master",
-        "enqueue/enqueue": "dev-master",
-        "enqueue/stomp": "dev-master",
-        "enqueue/amqp-ext": "dev-master",
-        "enqueue/enqueue-bundle": "dev-master",
-        "enqueue/job-queue": "dev-master",
-        "enqueue/test": "dev-master",
+        "enqueue/psr-queue": "*@dev",
+        "enqueue/enqueue": "*@dev",
+        "enqueue/stomp": "*@dev",
+        "enqueue/amqp-ext": "*@dev",
+        "enqueue/enqueue-bundle": "*@dev",
+        "enqueue/job-queue": "*@dev",
+        "enqueue/test": "*@dev",
+        "enqueue/null": "*@dev",
         "friendsofsymfony/elastica-bundle": "^3",
         "enqueue/elastica-bundle": "dev-master",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "liip/imagine-bundle": "^1.7.4",
+        "knplabs/gaufrette": "^0.3",
+        "knplabs/knp-gaufrette-bundle": "^0.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -81,6 +85,10 @@
         {
             "type": "path",
             "url": "../dev/pkg/enqueue"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/null"
         },
         {
             "type": "path",

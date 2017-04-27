@@ -23,7 +23,6 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
@@ -92,8 +91,61 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+
+knp_gaufrette:
+    adapters:
+        image:
+            local: { directory: '%kernel.root_dir%/../var/images' }
+
+    filesystems:
+        image:
+            adapter: 'image'
+
+    stream_wrapper:
+        protocol: 'gaufrette'
+        filesystems: ['image']
+
+liip_imagine:
+    loaders:
+        default:
+            stream: { wrapper: 'gaufrette://image/' }
+
+    resolvers:
+        web_path:
+            web_path: ~
+
+    driver: 'imagick'
+
+    filter_sets:
+        thumbnail_223x223:
+            cache: default
+            data_loader: default
+            filters:
+                thumbnail: { size: [223, 223], mode: inset }
+
+        thumbnail_23x23:
+            cache: default
+            data_loader: default
+            filters:
+                thumbnail: { size: [223, 223], mode: inset }
+
+        thumbnail_100x100:
+            cache: default
+            data_loader: default
+            filters:
+                thumbnail: { size: [223, 223], mode: inset }
+
 services:
   app.async.say_hello_processor:
     class: 'AppBundle\Async\SayHelloProcessor'
     tags:
-        - { name: 'enqueue.client.message_processor' }
+        - { name: 'enqueue.client.processor' }
+
+  app.async.resolve_all_processor:
+    class: 'AppBundle\Async\ResolveAllProcessor'
+    arguments:
+        - '@liip_imagine.cache.manager'
+        - '@liip_imagine.filter.manager'
+        - '@liip_imagine.data.manager'
+    tags:
+        - { name: 'enqueue.client.processor' }
