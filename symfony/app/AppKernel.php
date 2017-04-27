@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Enqueue\Bundle\EnqueueBundle(),
             new Enqueue\ElasticaBundle\EnqueueElasticaBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new \Liip\ImagineBundle\LiipImagineBundle(),
+            new \Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

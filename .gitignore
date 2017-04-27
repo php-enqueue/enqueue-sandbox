@@ -1,4 +1,6 @@
 .idea
 symfony/vendor
+symfony/web/media
+symfony/composer.lock
 docker/shared/.bash_history
 dev
