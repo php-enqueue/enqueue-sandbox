@@ -1,4 +1,5 @@
-version: '2'
+version: '3'
+
 services:
   sandbox:
     build: { context: ., dockerfile: Dockerfile.sandbox }
@@ -6,26 +7,30 @@ services:
       - mysql
       - rabbitmq
     volumes:
+      - ./docker/container/php/cli.ini:/etc/php/7.0/cli/conf.d/1-sandbox_cli.ini
       - ./docker/shared/:/shared
       - ./:/mqs
-      - /mqs/symfony/var
+    env_file: 'symfony/app/config/.env'
     environment:
       - HISTFILE=/shared/.bash_history
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASSWORD=guest
-      - RABBITMQ_VHOST=mqs
-      - RABBITMQ_PORT=5672
-      - MYSQL_DRIVER=pdo_mysql
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
-      - MYSQL_DATABASE=mqs
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=rootpass
-      - ELASTICSEARCH_HOST=elasticsearch
-      - ELASTICSEARCH_PORT=9200
     ports:
-      - "81:80"
+      - "80:80"
+
+  sandbox_consumer:
+    build: { context: ., dockerfile: Dockerfile.sandbox }
+    entrypoint: 'php symfony/bin/console enqueue:consume --setup-broker -vvv'
+    restart: 'on-failure'
+    depends_on:
+      - mysql
+      - rabbitmq
+    volumes:
+      - ./docker/container/php/cli.ini:/etc/php/7.0/cli/conf.d/1-sandbox_cli.ini
+      - ./docker/shared/:/shared
+      - ./:/mqs
+    env_file: 'symfony/app/config/.env'
+    environment:
+      - HISTFILE=/shared/.bash_history
+
   mysql:
     image: mariadb:10
     volumes:
@@ -35,8 +40,9 @@ services:
       MYSQL_DATABASE: mqs
     ports:
       - "3307:3306"
+
   rabbitmq:
-    build: { context: ., dockerfile: Dockerfile.rabbitmq }
+    image: enqueue/rabbitmq:latest
     ports:
       - "15673:15672"
     environment:

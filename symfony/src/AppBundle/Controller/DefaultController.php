@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use Enqueue\Client\Message;
-use Enqueue\Client\MessageProducerInterface;
+use Enqueue\Client\ProducerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +15,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        /** @var MessageProducerInterface $producer */
-        $producer = $this->get('enqueue.message_producer');
+        /** @var ProducerInterface $producer */
+        $producer = $this->get('enqueue.producer');
 
         $producer->send('foo_topic', 'Hello world');
 
