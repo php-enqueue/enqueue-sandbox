@@ -20,7 +20,7 @@ class SendSayHelloMessageCommand extends Command implements ContainerAwareInterf
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var \Enqueue\Client\MessageProducer $messageProducer **/
-        $messageProducer = $this->container->get('enqueue.message_producer');
+        $messageProducer = $this->container->get('enqueue.producer');
 
         $messageProducer->send(Topics::SAY_HELLO, ['name' => 'John Doe']);
 

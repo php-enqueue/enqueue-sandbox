@@ -3,16 +3,16 @@ namespace AppBundle\Async;
 
 use Enqueue\Client\TopicSubscriberInterface;
 use Enqueue\Consumption\Result;
-use Enqueue\Psr\Context;
-use Enqueue\Psr\Message;
-use Enqueue\Psr\Processor;
+use Enqueue\Psr\PsrContext;
+use Enqueue\Psr\PsrMessage;
+use Enqueue\Psr\PsrProcessor;
 
-class SayHelloProcessor implements Processor, TopicSubscriberInterface
+class SayHelloProcessor implements PsrProcessor, TopicSubscriberInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(Message $message, Context $context)
+    public function process(PsrMessage $message, PsrContext $context)
     {
         echo "Hello ".$message->getBody()."!\n";
 
