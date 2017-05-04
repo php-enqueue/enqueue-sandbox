@@ -31,7 +31,8 @@
         "fzaninotto/faker": "^1.6",
         "liip/imagine-bundle": "^1.7.4",
         "knplabs/gaufrette": "^0.3",
-        "knplabs/knp-gaufrette-bundle": "^0.4"
+        "knplabs/knp-gaufrette-bundle": "^0.4",
+        "php-amqplib/rabbitmq-bundle": "^1.12"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
