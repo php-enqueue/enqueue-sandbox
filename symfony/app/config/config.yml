@@ -83,7 +83,7 @@ fos_elastica:
             index_name: app_%kernel.environment%
             types:
                 blog:
-                    mappings:
+                    properties:
                         text: ~
                     persistence:
                         driver: orm
@@ -106,6 +106,7 @@ knp_gaufrette:
         filesystems: ['image']
 
 liip_imagine:
+    enqueue: true
     loaders:
         default:
             stream: { wrapper: 'gaufrette://image/' }
@@ -135,17 +136,37 @@ liip_imagine:
             filters:
                 thumbnail: { size: [223, 223], mode: inset }
 
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: '%rabbitmq_host%'
+            port: '%rabbitmq_port%'
+            user: '%rabbitmq_user%'
+            password: '%rabbitmq_password%'
+            vhost: '%rabbitmq_vhost%'
+            lazy: true
+    producers:
+        upload_picture:
+            connection:       default
+            exchange_options: {name: 'upload-picture', type: direct}
+            service_alias:    my_app_service # no alias by default
+    consumers:
+        upload_picture:
+            connection:       default
+            exchange_options: {name: 'upload-picture', type: direct}
+            queue_options:    {name: 'upload-picture'}
+            callback:         upload_picture_service
+
 services:
   app.async.say_hello_processor:
     class: 'AppBundle\Async\SayHelloProcessor'
     tags:
         - { name: 'enqueue.client.processor' }
 
-  app.async.resolve_all_processor:
-    class: 'AppBundle\Async\ResolveAllProcessor'
-    arguments:
-        - '@liip_imagine.cache.manager'
-        - '@liip_imagine.filter.manager'
-        - '@liip_imagine.data.manager'
+  app.async.upload_picture_processor:
+    class: 'AppBundle\Async\UploadPictureProcessor'
     tags:
         - { name: 'enqueue.client.processor' }
+
+  upload_picture_service:
+      class: 'AppBundle\Consumer\UploadPictureConsumer'
