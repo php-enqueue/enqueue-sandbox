@@ -8,6 +8,9 @@ use Liip\ImagineBundle\Async\ResolveCache;
 use Liip\ImagineBundle\Async\Topics as LiipImagineTopics;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -70,6 +73,25 @@ HTML
         return new Response(<<<HTML
 <p>The controller sends a message using the RabbitMQBundle.</p>
 <p>Check upload-picture queue.</p>
+HTML
+        );
+    }
+
+    /**
+     * @Route("/events/test-async", name="event_test_async")
+     */
+    public function eventTestAsyncAction(Request $request)
+    {
+        /** @var EventDispatcherInterface $dispatcher $dispather */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $dispatcher->dispatch('test_async', new GenericEvent('theSubject', [
+            'fooAttr' => 'fooVal',
+            'barAttr' => 'barVal',
+        ]));
+
+        return new Response(<<<HTML
+<p>The controller dispatch an event but must not be executed immidiatly instead the message to MQ has to be sent.</p>
 HTML
         );
     }

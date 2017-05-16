@@ -65,8 +65,8 @@ enqueue:
         amqp:
             host: '%rabbitmq_host%'
             port: '%rabbitmq_port%'
-            login: '%rabbitmq_user%'
-            password: '%rabbitmq_password%'
+            user: '%rabbitmq_user%'
+            pass: '%rabbitmq_password%'
             vhost: '%rabbitmq_vhost%'
     client:
         prefix: 'mqs'
@@ -74,6 +74,7 @@ enqueue:
         router_topic: 'router'
         router_queue: 'router'
         default_processor_queue: 'default'
+    async_events: true
 
 fos_elastica:
     clients:
@@ -170,3 +171,13 @@ services:
 
   upload_picture_service:
       class: 'AppBundle\Consumer\UploadPictureConsumer'
+
+  app.test_async_listener:
+      class: 'AppBundle\Listener\TestAsyncListener'
+      tags:
+          - { name: 'kernel.event_listener', event: 'test_async', method: 'onEvent', async: true }
+
+  app.test_async_transformer:
+      class: 'AppBundle\Events\TestAsyncEventTransformer'
+      tags:
+          - { name: 'enqueue.event_transformer', event: 'test_async' }

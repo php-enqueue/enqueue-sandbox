@@ -29,7 +29,7 @@
         "friendsofsymfony/elastica-bundle": "^3",
         "enqueue/elastica-bundle": "dev-master",
         "fzaninotto/faker": "^1.6",
-        "liip/imagine-bundle": "^1.7.4",
+        "liip/imagine-bundle": "^1.8",
         "knplabs/gaufrette": "^0.3",
         "knplabs/knp-gaufrette-bundle": "^0.4",
         "php-amqplib/rabbitmq-bundle": "^1.12"

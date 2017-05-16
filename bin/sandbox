@@ -9,7 +9,7 @@ while getopts "buse" OPTION; do
       COMPOSE_PROJECT_NAME=mqs docker-compose build
       ;;
     u)
-      COMPOSE_PROJECT_NAME=mqs docker-compose up
+      COMPOSE_PROJECT_NAME=mqs docker-compose up -d
       ;;
     s)
       COMPOSE_PROJECT_NAME=mqs docker-compose stop
