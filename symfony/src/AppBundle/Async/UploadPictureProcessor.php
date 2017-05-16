@@ -5,8 +5,6 @@ use Enqueue\Client\TopicSubscriberInterface;
 use Enqueue\Psr\PsrContext;
 use Enqueue\Psr\PsrMessage;
 use Enqueue\Psr\PsrProcessor;
-use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class UploadPictureProcessor implements PsrProcessor, TopicSubscriberInterface
 {

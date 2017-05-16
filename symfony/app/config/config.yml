@@ -83,7 +83,7 @@ fos_elastica:
             index_name: app_%kernel.environment%
             types:
                 blog:
-                    mappings:
+                    properties:
                         text: ~
                     persistence:
                         driver: orm
