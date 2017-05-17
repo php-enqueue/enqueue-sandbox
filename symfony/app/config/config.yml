@@ -74,6 +74,7 @@ enqueue:
         router_topic: 'router'
         router_queue: 'router'
         default_processor_queue: 'default'
+        traceable_producer: true
     async_events: true
 
 fos_elastica:
@@ -176,8 +177,3 @@ services:
       class: 'AppBundle\Listener\TestAsyncListener'
       tags:
           - { name: 'kernel.event_listener', event: 'test_async', method: 'onEvent', async: true }
-
-  app.test_async_transformer:
-      class: 'AppBundle\Events\TestAsyncEventTransformer'
-      tags:
-          - { name: 'enqueue.event_transformer', event: 'test_async' }
