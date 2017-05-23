@@ -1,5 +1,7 @@
 <?php
 
+// GUSER=yourAccountName@gmail.com GPASS="yourGmailPassword" php consume.php
+
 require_once __DIR__.'/vendor/autoload.php';
 
 $transport = new Swift_SpoolTransport(new \Demo\Swiftmailer\QueueSpool(

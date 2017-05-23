@@ -1,5 +1,7 @@
 <?php
 
+// could be run as GUSER=yourAccountName@gmail.com GPASS="yourGmailPassword" php send.php
+
 require_once __DIR__.'/vendor/autoload.php';
 
 $transport = new Swift_SpoolTransport(new \Demo\Swiftmailer\QueueSpool(
@@ -15,3 +17,8 @@ $message = (new Swift_Message('Wonderful Subject'))
 ;
 
 $result = $mailer->send($message);
+
+
+// The message was sent to MQ. Now run
+// GUSER=yourAccountName@gmail.com GPASS="yourGmailPassword" php consume.php
+// to send them for real
