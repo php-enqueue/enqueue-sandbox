@@ -3,7 +3,7 @@
 require_once __DIR__.'/vendor/autoload.php';
 
 $transport = new Swift_SpoolTransport(new \Demo\Swiftmailer\QueueSpool(
-    \Enqueue\dsn_to_context('file:/'.__DIR__.'/queue')
+    \Enqueue\dsn_to_context('amqp://')
 ));
 
 /** @var \Demo\Swiftmailer\QueueSpool $spool */
