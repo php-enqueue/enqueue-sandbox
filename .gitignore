@@ -2,5 +2,8 @@
 symfony/vendor
 symfony/web/media
 symfony/composer.lock
+swiftmailer/composer.lock
+swiftmailer/vendor
+swiftmailer/queue
 docker/shared/.bash_history
 dev

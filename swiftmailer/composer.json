@@ -1,0 +1,48 @@
+{
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0",
+        "enqueue/fs": "*@dev",
+        "enqueue/enqueue": "*@dev"
+    },
+    "autoload": {
+        "psr-4": { "Demo\\Swiftmailer\\": "" }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../dev/pkg/psr-queue"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/test"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/enqueue"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/null"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/stomp"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/fs"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/amqp-ext"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/enqueue-bundle"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/job-queue"
+        }
+    ]
+}
