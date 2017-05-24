@@ -95,4 +95,12 @@ HTML
 HTML
         );
     }
+
+    /**
+     * @Route("/websocket/chat-demo", name="websocket_chat_demo")
+     */
+    public function websocketChatDemoAction(Request $request)
+    {
+        return $this->render('::websocket.html.twig');
+    }
 }

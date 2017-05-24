@@ -43,9 +43,10 @@ services:
       - "3307:3306"
 
   rabbitmq:
-    image: enqueue/rabbitmq:latest
+    build: { context: ., dockerfile: Dockerfile.rabbitmq }
     ports:
       - "15673:15672"
+      - "15674:15674"
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
