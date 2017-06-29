@@ -3,17 +3,13 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
         <script>
-            var ws = new WebSocket('ws://127.0.0.1:15674/ws');
-            var client = Stomp.over(ws);
+            var client = Stomp.over(new WebSocket('ws://127.0.0.1:15674/ws'));
 
-            // RabbitMQ SockJS does not support heart-beats
-            client.heartbeat.outgoing = 0;
-            client.heartbeat.incoming = 0;
             client.debug = onDebug;
             client.connect('guest', 'guest', onConnect, onError, 'mqs');
 
             function onConnect() {
-                var id = client.subscribe("/exchange/chat", function(d) {
+                client.subscribe("/exchange/chat", function(d) {
                     var node = document.createTextNode(d.body + '\n');
                     document.getElementById('chat').appendChild(node);
                 });
