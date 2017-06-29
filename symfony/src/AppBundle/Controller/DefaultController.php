@@ -24,13 +24,13 @@ class DefaultController extends Controller
         /** @var ProducerInterface $producer */
         $producer = $this->get('enqueue.producer');
 
-        $producer->send('foo_topic', 'Hello world');
+        $producer->sendEvent('foo_topic', 'Hello world');
 
-        $producer->send('bar_topic', ['bar' => 'val']);
+        $producer->sendEvent('bar_topic', ['bar' => 'val']);
 
         $message = new Message();
         $message->setBody('baz');
-        $producer->send('baz_topic', $message);
+        $producer->sendEvent('baz_topic', $message);
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -46,8 +46,8 @@ class DefaultController extends Controller
         /** @var ProducerInterface $producer */
         $producer = $this->get('enqueue.producer');
 
-        $producer->send(LiipImagineTopics::RESOLVE_CACHE, new ResolveCache('kitten.jpg'));
-        $producer->send(LiipImagineTopics::RESOLVE_CACHE, new ResolveCache('castle.jpg', ['thumbnail_223x223']));
+        $producer->sendEvent(LiipImagineTopics::RESOLVE_CACHE, new ResolveCache('kitten.jpg'));
+        $producer->sendEvent(LiipImagineTopics::RESOLVE_CACHE, new ResolveCache('castle.jpg', ['thumbnail_223x223']));
 
         return new Response(<<<HTML
 <p> The controller sends a message to resolve cache for two images kitten.jpg and castle.jpg.</p>
