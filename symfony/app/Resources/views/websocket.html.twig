@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+        <script>
+            var client = Stomp.over(new WebSocket('ws://127.0.0.1:15674/ws'));
+
+            client.debug = onDebug;
+            client.connect('guest', 'guest', onConnect, onError, 'mqs');
+
+            function onConnect() {
+                client.subscribe("/exchange/chat", function(d) {
+                    var node = document.createTextNode(d.body + '\n');
+                    document.getElementById('chat').appendChild(node);
+                });
+
+                client.subscriptions['/temp-queue/chat_history'] = function(d) {
+                    document.getElementById('chat').innerText = d.body + '\n';
+                };
+
+                client.send('/queue/chat_request_history', { "reply-to": '/temp-queue/chat_history' }, '');
+            }
+
+            function onError(e) {
+                console.log("STOMP ERROR", e);
+            }
+
+            function onDebug(m) {
+                console.log("STOMP DEBUG", m);
+            }
+
+            function sendMsg() {
+                var msg = document.getElementById('msg').value;
+                client.send('/exchange/chat', { "content-type": "text/plain" }, msg.trim());
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Web stomp chat</h1>
+        <input title="Message: " id="msg" type="text" />
+        <button id="send" onclick="sendMsg()">Send</button>
+        <br />
+        <pre id="chat"></pre>
+    </body>
+</html>

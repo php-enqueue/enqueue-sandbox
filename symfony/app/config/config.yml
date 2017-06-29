@@ -165,6 +165,14 @@ services:
     tags:
         - { name: 'enqueue.client.processor' }
 
+  app.async.chat_history_processor:
+    class: 'AppBundle\Async\ChatHistoryProcessor'
+    arguments: ['%kernel.root_dir%/../var']
+
+  app.async.save_chat_history_processor:
+    class: 'AppBundle\Async\SaveChatHistoryProcessor'
+    arguments: ['%kernel.root_dir%/../var']
+
   app.async.upload_picture_processor:
     class: 'AppBundle\Async\UploadPictureProcessor'
     tags:
