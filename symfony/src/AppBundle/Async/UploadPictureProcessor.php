@@ -1,41 +1,33 @@
 <?php
 namespace AppBundle\Async;
 
-use Enqueue\Client\TopicSubscriberInterface;
+use Enqueue\Client\CommandSubscriberInterface;
 use Enqueue\Psr\PsrContext;
 use Enqueue\Psr\PsrMessage;
 use Enqueue\Psr\PsrProcessor;
+use Enqueue\Util\JSON;
 
-class UploadPictureProcessor implements PsrProcessor, TopicSubscriberInterface
+class UploadPictureProcessor implements PsrProcessor, CommandSubscriberInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(PsrMessage $message, PsrContext $context)
     {
-        //Process picture upload.
-        //$msg will be an instance of `PhpAmqpLib\Message\AMQPMessage` with the $msg->body being the data sent over RabbitMQ.
+        $isUploadSuccess = someUploadPictureMethod(JSON::decode($message->getBody()));
 
-        $isUploadSuccess = someUploadPictureMethod();
         if (!$isUploadSuccess) {
-            // If your image upload failed due to a temporary error you can return false
-            // from your callback so the message will be rejected by the consumer and
-            // requeued by RabbitMQ.
-            // Any other value not equal to false will acknowledge the message and remove it
-            // from the queue
             return self::REJECT;
         }
 
         return self::ACK;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedTopics()
+    public static function getSubscribedCommand()
     {
         return [
-            'upload_picture' => ['queueName' => 'upload_picture', 'queueNameHardcoded' => true]
+            'processorName' => 'upload_picture',
+            // these are optional, setting these option we make the migration smooth and backward compatible.
+            'queueName' => 'upload-picture',
+            'queueNameHardcoded' => true,
+            'exclusive' => true,
         ];
     }
 }

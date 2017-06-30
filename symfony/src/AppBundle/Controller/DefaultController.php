@@ -65,7 +65,7 @@ HTML
         $msg = array('user_id' => 1235, 'image_path' => '/path/to/new/pic.png');
 
         $this->get('old_sound_rabbit_mq.upload_picture_producer')->publish(serialize($msg));
-        $this->get('enqueue.producer')->send('upload_picture', $msg);
+        $this->get('enqueue.producer')->sendCommand('upload_picture', $msg);
 
 
 
