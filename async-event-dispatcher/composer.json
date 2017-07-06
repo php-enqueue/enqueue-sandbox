@@ -1,0 +1,21 @@
+{
+  "autoload": {
+    "psr-4": { "": "" }
+  },
+  "require": {
+    "php": ">=5.5.9",
+    "symfony/event-dispatcher": "^3.2@dev",
+    "enqueue/async-event-dispatcher": "*@dev",
+    "enqueue/fs": "*@dev"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../dev/pkg/async-event-dispatcher"
+    },
+    {
+      "type": "path",
+      "url": "../dev/pkg/fs"
+    }
+  ]
+}
