@@ -3,9 +3,9 @@ namespace AppBundle\Async;
 
 use Enqueue\Client\TopicSubscriberInterface;
 use Enqueue\Consumption\Result;
-use Enqueue\Psr\PsrContext;
-use Enqueue\Psr\PsrMessage;
-use Enqueue\Psr\PsrProcessor;
+use Interop\Queue\PsrContext;
+use Interop\Queue\PsrMessage;
+use Interop\Queue\PsrProcessor;
 
 class SayHelloProcessor implements PsrProcessor, TopicSubscriberInterface
 {

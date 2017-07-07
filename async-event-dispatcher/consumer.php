@@ -1,5 +1,5 @@
 <?php
-use Enqueue\Psr\PsrProcessor;
+use Interop\Queue\PsrProcessor;
 
 require_once __DIR__.'/vendor/autoload.php';
 include __DIR__.'/config.php';

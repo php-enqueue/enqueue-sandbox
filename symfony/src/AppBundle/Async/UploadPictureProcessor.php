@@ -2,9 +2,9 @@
 namespace AppBundle\Async;
 
 use Enqueue\Client\CommandSubscriberInterface;
-use Enqueue\Psr\PsrContext;
-use Enqueue\Psr\PsrMessage;
-use Enqueue\Psr\PsrProcessor;
+use Interop\Queue\PsrContext;
+use Interop\Queue\PsrMessage;
+use Interop\Queue\PsrProcessor;
 use Enqueue\Util\JSON;
 
 class UploadPictureProcessor implements PsrProcessor, CommandSubscriberInterface
