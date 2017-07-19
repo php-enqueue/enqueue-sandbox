@@ -16,5 +16,10 @@ Route::get('/', function () {
 });
 
 Route::get('/queue/test', function () {
+    $job = new \App\Jobs\EnqueueTest();
+    $job->onConnection('interop');
+
+    dispatch($job);
+
     return 'QueueTest';
 });

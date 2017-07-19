@@ -29,6 +29,11 @@ return [
     */
 
     'connections' => [
+        'interop' => [
+            'driver' => 'interop',
+            'connection_factory_class' => \Enqueue\Fs\FsConnectionFactory::class,
+            'path' => realpath(__DIR__.'/../storage').'/enqueue',
+        ],
 
         'sync' => [
             'driver' => 'sync',
