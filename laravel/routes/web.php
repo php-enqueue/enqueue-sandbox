@@ -11,6 +11,8 @@
 |
 */
 
+use Enqueue\SimpleClient\SimpleClient;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -22,4 +24,13 @@ Route::get('/queue/test', function () {
     dispatch($job);
 
     return 'QueueTest';
+});
+
+Route::get('/enqueue/test', function () {
+    /** @var SimpleClient $client */
+    $client = \App::make(SimpleClient::class);
+
+    $client->sendEvent('enqueue_test', 'The message');
+
+    return 'EnqueueTest';
 });

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "190ca1900ae227fb310f29e5b162022d",
+    "content-hash": "b920f1d070436ce2bb3bb2a299258ba8",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -107,18 +107,88 @@
             "time": "2015-11-06T14:35:42+00:00"
         },
         {
-            "name": "enqueue/fs",
+            "name": "enqueue/enqueue",
             "version": "0.6.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-enqueue/fs.git",
-                "reference": "56691b94024a1b08e5b61384c23495777899e308"
+                "url": "https://github.com/php-enqueue/enqueue.git",
+                "reference": "70e1b036d55610f959ed9a28bba1bc48d060c5ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-enqueue/fs/zipball/56691b94024a1b08e5b61384c23495777899e308",
-                "reference": "56691b94024a1b08e5b61384c23495777899e308",
+                "url": "https://api.github.com/repos/php-enqueue/enqueue/zipball/70e1b036d55610f959ed9a28bba1bc48d060c5ec",
+                "reference": "70e1b036d55610f959ed9a28bba1bc48d060c5ec",
                 "shasum": ""
+            },
+            "require": {
+                "enqueue/null": "^0.6@dev",
+                "php": ">=5.6",
+                "queue-interop/queue-interop": "^0.5@dev",
+                "ramsey/uuid": "^2|^3.5"
+            },
+            "require-dev": {
+                "empi89/php-amqp-stubs": "*@dev",
+                "enqueue/amqp-ext": "^0.6@dev",
+                "enqueue/dbal": "^0.6@dev",
+                "enqueue/fs": "^0.6@dev",
+                "enqueue/simple-client": "^0.6@dev",
+                "enqueue/test": "^0.6@dev",
+                "phpunit/phpunit": "~5.5",
+                "symfony/config": "^2.8|^3",
+                "symfony/console": "^2.8|^3",
+                "symfony/dependency-injection": "^2.8|^3",
+                "symfony/event-dispatcher": "^2.8|^3",
+                "symfony/http-kernel": "^2.8|^3"
+            },
+            "suggest": {
+                "enqueue/amqp-ext": "AMQP transport (based on php extension)",
+                "enqueue/dbal": "Doctrine DBAL transport",
+                "enqueue/fs": "Filesystem transport",
+                "enqueue/redis": "Redis transport",
+                "enqueue/sqs": "Amazon AWS SQS transport",
+                "enqueue/stomp": "STOMP transport",
+                "symfony/config": "^2.8|^3",
+                "symfony/console": "^2.8|^3 If you want to use li commands",
+                "symfony/dependency-injection": "^2.8|^3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enqueue\\": ""
+                },
+                "files": [
+                    "functions_include.php"
+                ],
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Message Queue Library",
+            "keywords": [
+                "AMQP",
+                "messaging",
+                "queue",
+                "rabbitmq"
+            ],
+            "time": "2017-07-07T10:44:29+00:00"
+        },
+        {
+            "name": "enqueue/fs",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../dev/pkg/fs",
+                "reference": "cc488765e35184f000ea955d38d4bd2e19d7ab74",
+                "shasum": null
             },
             "require": {
                 "makasim/temp-file": "^0.2",
@@ -150,7 +220,6 @@
                     "/Tests/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -160,8 +229,159 @@
                 "local",
                 "messaging",
                 "queue"
+            ]
+        },
+        {
+            "name": "enqueue/laravel-queue",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-enqueue/laravel-queue.git",
+                "reference": "87748d65ad02081189cd26f8eed8954b7badb253"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-enqueue/laravel-queue/zipball/87748d65ad02081189cd26f8eed8954b7badb253",
+                "reference": "87748d65ad02081189cd26f8eed8954b7badb253",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/queue": "^5.4",
+                "php": ">=5.6",
+                "queue-interop/queue-interop": "^0.5"
+            },
+            "require-dev": {
+                "enqueue/enqueue": "^0.6@dev",
+                "enqueue/null": "^0.6@dev",
+                "enqueue/test": "^0.6@dev",
+                "phpunit/phpunit": "~5.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enqueue\\LaravelQueue\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Queue Extension. It uses Enqueue transports",
+            "keywords": [
+                "laravel",
+                "messaging",
+                "queue"
+            ],
+            "time": "2017-07-20 13:02:05"
+        },
+        {
+            "name": "enqueue/null",
+            "version": "0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-enqueue/null.git",
+                "reference": "ae54aa0605dd4150c885782c78621a8a7a5add06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-enqueue/null/zipball/ae54aa0605dd4150c885782c78621a8a7a5add06",
+                "reference": "ae54aa0605dd4150c885782c78621a8a7a5add06",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6",
+                "psr/log": "^1",
+                "queue-interop/queue-interop": "^0.5@dev"
+            },
+            "require-dev": {
+                "enqueue/enqueue": "^0.6@dev",
+                "enqueue/test": "^0.6@dev",
+                "phpunit/phpunit": "~5.5",
+                "queue-interop/queue-spec": "^0.5@dev",
+                "symfony/config": "^2.8|^3",
+                "symfony/dependency-injection": "^2.8|^3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enqueue\\Null\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Enqueue Null transport",
+            "keywords": [
+                "messaging",
+                "queue",
+                "testing"
             ],
             "time": "2017-07-07T09:43:47+00:00"
+        },
+        {
+            "name": "enqueue/simple-client",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../dev/pkg/simple-client",
+                "reference": "7aa651a38b4fb32b652c9291350284fc30769be5",
+                "shasum": null
+            },
+            "require": {
+                "enqueue/enqueue": "^0.6@dev",
+                "php": ">=5.6",
+                "symfony/config": "^2.8|^3",
+                "symfony/console": "^2.8|^3",
+                "symfony/dependency-injection": "^2.8|^3"
+            },
+            "require-dev": {
+                "enqueue/amqp-ext": "^0.6@dev",
+                "enqueue/fs": "^0.6@dev",
+                "enqueue/null": "^0.6@dev",
+                "enqueue/test": "^0.6@dev",
+                "phpunit/phpunit": "~5.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enqueue\\SimpleClient\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Message Queue Simple Client",
+            "keywords": [
+                "amqp",
+                "messaging",
+                "queue",
+                "rabbitmq"
+            ]
         },
         {
             "name": "erusev/parsedown",
@@ -294,16 +514,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.28",
+            "version": "v5.4.30",
             "source": {
                 "type": "git",
-                "url": "https://github.com/formapro-forks/framework.git",
-                "reference": "442511fc62121085d184355e4f964c88942bbecb"
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "b9a64955f4278f45ac348a6e000b5ecc85da167a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formapro-forks/framework/zipball/442511fc62121085d184355e4f964c88942bbecb",
-                "reference": "442511fc62121085d184355e4f964c88942bbecb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/b9a64955f4278f45ac348a6e000b5ecc85da167a",
+                "reference": "b9a64955f4278f45ac348a6e000b5ecc85da167a",
                 "shasum": ""
             },
             "require": {
@@ -403,14 +623,7 @@
                     "Illuminate\\": "src/Illuminate/"
                 }
             },
-            "autoload-dev": {
-                "files": [
-                    "tests/Database/stubs/MigrationCreatorFakeMigration.php"
-                ],
-                "psr-4": {
-                    "Illuminate\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -426,24 +639,20 @@
                 "framework",
                 "laravel"
             ],
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "time": "2017-06-30T13:43:07+00:00"
+            "time": "2017-07-19T19:26:19+00:00"
         },
         {
             "name": "laravel/tinker",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "7eb2e281395131897407285672ef5532e87e17f9"
+                "reference": "203978fd67f118902acff95925847e70b72e3daf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/7eb2e281395131897407285672ef5532e87e17f9",
-                "reference": "7eb2e281395131897407285672ef5532e87e17f9",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/203978fd67f118902acff95925847e70b72e3daf",
+                "reference": "203978fd67f118902acff95925847e70b72e3daf",
                 "shasum": ""
             },
             "require": {
@@ -493,7 +702,7 @@
                 "laravel",
                 "psysh"
             ],
-            "time": "2017-06-01T16:31:26+00:00"
+            "time": "2017-07-13T13:11:05+00:00"
         },
         {
             "name": "league/flysystem",
@@ -895,6 +1104,55 @@
             "time": "2017-03-13T16:27:32+00:00"
         },
         {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.2",
             "source": {
@@ -1191,6 +1449,68 @@
             "time": "2017-05-01T15:54:03+00:00"
         },
         {
+            "name": "symfony/config",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/config.git",
+                "reference": "a094618deb9a3fe1c3cf500a796e167d0495a274"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/config/zipball/a094618deb9a3fe1c3cf500a796e167d0495a274",
+                "reference": "a094618deb9a3fe1c3cf500a796e167d0495a274",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/filesystem": "~2.8|~3.0"
+            },
+            "conflict": {
+                "symfony/dependency-injection": "<3.3",
+                "symfony/finder": "<3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "~3.3",
+                "symfony/finder": "~3.3",
+                "symfony/yaml": "~3.0"
+            },
+            "suggest": {
+                "symfony/yaml": "To use the yaml reference dumper"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Config\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Config Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-06-16T12:40:34+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v3.3.5",
             "source": {
@@ -1367,6 +1687,76 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
             "time": "2017-07-05T13:02:37+00:00"
+        },
+        {
+            "name": "symfony/dependency-injection",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dependency-injection.git",
+                "reference": "761e51a86f35f5b3e213e9b7f554fd91f9bffae4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/761e51a86f35f5b3e213e9b7f554fd91f9bffae4",
+                "reference": "761e51a86f35f5b3e213e9b7f554fd91f9bffae4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "psr/container": "^1.0"
+            },
+            "conflict": {
+                "symfony/config": "<3.3.1",
+                "symfony/finder": "<3.3",
+                "symfony/yaml": "<3.3"
+            },
+            "provide": {
+                "psr/container-implementation": "1.0"
+            },
+            "require-dev": {
+                "symfony/config": "~3.3",
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/yaml": "~3.3"
+            },
+            "suggest": {
+                "symfony/config": "",
+                "symfony/expression-language": "For using expressions in service container configuration",
+                "symfony/finder": "For using double-star glob patterns or when GLOB_BRACE portability is required",
+                "symfony/proxy-manager-bridge": "Generate service proxies to lazy load them",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DependencyInjection\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DependencyInjection Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-07-17T14:07:10+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3560,7 +3950,11 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "enqueue/fs": 20,
+        "enqueue/simple-client": 20,
+        "enqueue/laravel-queue": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -11,6 +11,8 @@
 |
 */
 
+use Enqueue\SimpleClient\SimpleClient;
+
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
@@ -40,6 +42,16 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+$app->resolving(SimpleClient::class, function (SimpleClient $client, $app) {
+    $client->bind('enqueue_test', 'echo_processor', function(\Interop\Queue\PsrMessage $message) {
+        echo $message->getBody().PHP_EOL;
+
+        return \Interop\Queue\PsrProcessor::ACK;
+    });
+
+    return $client;
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -8,7 +8,9 @@
         "php": ">=5.6.4",
         "laravel/framework": "^5.4",
         "laravel/tinker": "~1.0",
-        "enqueue/fs": "^0.6"
+        "enqueue/fs": "*@dev",
+        "enqueue/simple-client": "*@dev",
+        "enqueue/laravel-queue": "^0.6@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -52,11 +54,67 @@
     "repositories": [
         {
             "type": "path",
+            "url": "../dev/pkg/test"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/enqueue"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/stomp"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/amqp-ext"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/redis"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/enqueue-bundle"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/job-queue"
+        },
+        {
+            "type": "path",
             "url": "../dev/pkg/fs"
         },
         {
-            "type": "vcs",
-            "url": "git@github.com:formapro-forks/framework.git"
+            "type": "path",
+            "url": "../dev/pkg/null"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/dbal"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/sqs"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/pheanstalk"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/gearman"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/rdkafka"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/simple-client"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/async-event-dispatcher"
         }
     ]
 }
