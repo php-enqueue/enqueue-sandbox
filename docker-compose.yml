@@ -32,6 +32,24 @@ services:
     environment:
       - HISTFILE=/shared/.bash_history
 
+  sandbox_laravel:
+    build: { context: ., dockerfile: Dockerfile.sandbox }
+    entrypoint: php artisan serve --host 0.0.0.0 --port=80
+    working_dir: '/mqs/laravel'
+    depends_on:
+      - mysql
+      - rabbitmq
+      - elasticsearch
+    volumes:
+      - ./docker/container/php/cli.ini:/etc/php/7.0/cli/conf.d/1-sandbox_cli.ini
+      - ./docker/shared/:/shared
+      - ./:/mqs
+    env_file: 'laravel/.env'
+    environment:
+      - HISTFILE=/shared/.bash_history
+    ports:
+      - "81:80"
+
   mysql:
     image: mariadb:10
     volumes:
