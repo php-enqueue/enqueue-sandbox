@@ -1,6 +1,6 @@
 {
     "require": {
-        "swiftmailer/swiftmailer": "^6.0",
+        "swiftmailer/swiftmailer": "dev-queue-spool@dev",
         "enqueue/fs": "*@dev",
         "enqueue/enqueue": "*@dev"
     },
@@ -43,6 +43,10 @@
         {
             "type": "path",
             "url": "../dev/pkg/job-queue"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:formapro-forks/swiftmailer.git"
         }
     ]
 }
