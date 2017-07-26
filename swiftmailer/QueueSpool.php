@@ -1,8 +1,9 @@
 <?php
 namespace Demo\Swiftmailer;
 
-use Enqueue\Psr\ExceptionInterface as PsrException;
-use Enqueue\Psr\PsrContext;
+use Interop\Queue\ExceptionInterface as PsrException;
+use Interop\Queue\PsrContext;
+use Interop\Queue\PsrQueue;
 use Swift_Mime_SimpleMessage;
 use Swift_Transport;
 
@@ -14,11 +15,23 @@ class QueueSpool extends \Swift_ConfigurableSpool
     private $context;
 
     /**
-     * @param PsrContext $context
+     * @var PsrQueue
      */
-    public function __construct(PsrContext $context)
+    private $queue;
+
+    /**
+     * @param PsrContext $context
+     * @param PsrQueue|string $queue
+     */
+    public function __construct(PsrContext $context, $queue = 'swiftmailer_spool')
     {
         $this->context = $context;
+
+        if (false == $queue instanceof PsrQueue) {
+            $queue = $this->context->createQueue($queue);
+        }
+
+        $this->queue = $queue;
     }
 
     /**
@@ -27,11 +40,9 @@ class QueueSpool extends \Swift_ConfigurableSpool
     public function queueMessage(Swift_Mime_SimpleMessage $message)
     {
         try {
-            $queue = $this->context->createQueue('swiftmailer_spool');
-
             $message = $this->context->createMessage(serialize($message));
 
-            $this->context->createProducer()->send($queue, $message);
+            $this->context->createProducer()->send($this->queue, $message);
         } catch (PsrException $e) {
             throw new \Swift_IoException(sprintf('Unable to send message to message queue.'), null, $e);
         }
@@ -42,8 +53,7 @@ class QueueSpool extends \Swift_ConfigurableSpool
      */
     public function flushQueue(Swift_Transport $transport, &$failedRecipients = null)
     {
-        $queue = $this->context->createQueue('swiftmailer_spool');
-        $consumer = $this->context->createConsumer($queue);
+        $consumer = $this->context->createConsumer($this->queue);
 
         $isTransportStarted = false;
 

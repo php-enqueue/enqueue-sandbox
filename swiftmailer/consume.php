@@ -1,14 +1,15 @@
 <?php
 
+// consume.php
 // GUSER=yourAccountName@gmail.com GPASS="yourGmailPassword" php consume.php
 
 require_once __DIR__.'/vendor/autoload.php';
 
-$transport = new Swift_SpoolTransport(new \Demo\Swiftmailer\QueueSpool(
-    \Enqueue\dsn_to_context('amqp://')
+$transport = new Swift_SpoolTransport(new \Swift_QueueSpool(
+    (new \Enqueue\Fs\FsConnectionFactory('file://'.__DIR__.'/queue'))->createContext()
 ));
 
-/** @var \Demo\Swiftmailer\QueueSpool $spool */
+/** @var \Swift_QueueSpool $spool */
 $spool = $transport->getSpool();
 $spool->setTimeLimit(3);
 
