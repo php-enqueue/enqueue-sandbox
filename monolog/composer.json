@@ -1,9 +1,12 @@
 {
+    "minimum-stability": "dev",
     "require": {
         "monolog/monolog": "^1",
-        "enqueue/fs": "*@dev",
-        "enqueue/enqueue": "*@dev",
-        "queue-interop/amqp-interop": "*@dev"
+        "enqueue/fs": "^0.7@dev",
+        "enqueue/enqueue": "^0.7@dev",
+        "queue-interop/amqp-interop": "^0.6@dev",
+        "queue-interop/queue-interop": "^0.6@dev",
+        "enqueue/monolog-queue-handler": "^0.7@dev"
     },
     "autoload": {
         "psr-4": { "Demo\\Monolog\\": "" }
