@@ -8,8 +8,8 @@
     },
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "^3.2@dev",
-        "doctrine/orm": "^2.5",
+        "symfony/symfony": "^3",
+        "doctrine/orm": "^2.6@dev",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
         "symfony/swiftmailer-bundle": "^2.3",
@@ -18,18 +18,19 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "enqueue/psr-queue": "dev-master",
-        "enqueue/enqueue": "dev-master",
-        "enqueue/stomp": "dev-master",
-        "enqueue/amqp-ext": "dev-master",
-        "enqueue/enqueue-bundle": "dev-master",
-        "enqueue/job-queue": "dev-master",
-        "enqueue/test": "dev-master",
-        "enqueue/null": "dev-master",
+        "enqueue/enqueue": "*@dev",
+        "enqueue/stomp": "*@dev",
+        "enqueue/amqp-ext": "*@dev",
+        "enqueue/amqp-tools": "*@dev",
+        "enqueue/enqueue-bundle": "*@dev",
+        "enqueue/job-queue": "*@dev",
+        "enqueue/test": "*@dev",
+        "enqueue/null": "*@dev",
+        "queue-interop/amqp-interop": "^0.6",
         "friendsofsymfony/elastica-bundle": "^3",
-        "enqueue/elastica-bundle": "dev-master",
+        "enqueue/elastica-bundle": "*@dev",
         "fzaninotto/faker": "^1.6",
-        "liip/imagine-bundle": "^1.8",
+        "liip/imagine-bundle": "^2.0@dev",
         "knplabs/gaufrette": "^0.3",
         "knplabs/knp-gaufrette-bundle": "^0.4",
         "php-amqplib/rabbitmq-bundle": "^1.12"
@@ -57,7 +58,10 @@
     },
     "config": {
         "platform": {
-            "php": "5.5.9"
+            "php": "7.1",
+            "ext-amqp": "1.7",
+            "ext-gearman": "1.1",
+            "ext-rdkafka": "3.3"
         }
     },
     "extra": {
@@ -77,7 +81,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../dev/pkg/psr-queue"
+            "url": "../dev/pkg/amqp-tools"
         },
         {
             "type": "path",

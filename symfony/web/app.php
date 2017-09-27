@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-require __DIR__.'/../app/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 $kernel = new AppKernel(getenv('APP_ENV'), getenv('APP_DEBUG'));
 
