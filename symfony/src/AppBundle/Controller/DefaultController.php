@@ -2,12 +2,16 @@
 
 namespace AppBundle\Controller;
 
+use Enqueue\AmqpExt\AmqpConnectionFactory;
 use Enqueue\Client\Message;
 use Enqueue\Client\ProducerInterface;
+use Interop\Amqp\AmqpContext;
+use Interop\Amqp\AmqpTopic;
 use Liip\ImagineBundle\Async\ResolveCache;
 use Liip\ImagineBundle\Async\Topics as LiipImagineTopics;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Amqp\Broker;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
@@ -92,6 +96,34 @@ HTML
 
         return new Response(<<<HTML
 <p>The controller dispatch an event but must not be executed immidiatly instead the message to MQ has to be sent.</p>
+HTML
+        );
+    }
+
+    /**
+     * @Route("/symfony/interop-amqp", name="symfony_itnerop_amqp")
+     */
+    public function symfonyAmqpInteropAction(Request $request)
+    {
+        /** @var AmqpContext $context */
+        $context = $this->get('enqueue.transport.amqp.context');
+
+        $broker = new Broker($context);
+        $broker->createExchange('amqp_interop', [
+            'type' => AmqpTopic::TYPE_DIRECT,
+        ]);
+
+        $broker->createQueue('amqp_interop_queue', [
+            'exchange' => 'amqp_interop',
+            'routing_keys' => ['test'],
+        ]);
+
+        $broker->publish('test', 'A message', [
+            'exchange' => 'amqp_interop',
+        ]);
+
+        return new Response(<<<HTML
+<p>Symfony's AMQP broker sent a message</p>
 HTML
         );
     }

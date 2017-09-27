@@ -3,6 +3,7 @@ version: '3'
 services:
   sandbox:
     build: { context: ., dockerfile: Dockerfile.sandbox }
+    restart: 'always'
     depends_on:
       - mysql
       - rabbitmq
@@ -20,7 +21,7 @@ services:
   sandbox_consumer:
     build: { context: ., dockerfile: Dockerfile.sandbox }
     entrypoint: 'php symfony/bin/console enqueue:consume --setup-broker -vvv'
-    restart: 'on-failure'
+    restart: 'always'
     depends_on:
       - mysql
       - rabbitmq
@@ -35,6 +36,7 @@ services:
   sandbox_laravel:
     build: { context: ., dockerfile: Dockerfile.sandbox }
     entrypoint: php artisan serve --host 0.0.0.0 --port=80
+    restart: 'always'
     working_dir: '/mqs/laravel'
     depends_on:
       - mysql
@@ -52,6 +54,7 @@ services:
 
   mysql:
     image: mariadb:10
+    restart: 'always'
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
@@ -62,6 +65,7 @@ services:
 
   rabbitmq:
     build: { context: ., dockerfile: Dockerfile.rabbitmq }
+    restart: 'always'
     ports:
       - "15673:15672"
       - "15674:15674"
@@ -72,6 +76,7 @@ services:
 
   elasticsearch: 
     build: { context: ., dockerfile: Dockerfile.elasticsearch } 
+    restart: 'always'
     ports: 
       - "9201:9200"
 
