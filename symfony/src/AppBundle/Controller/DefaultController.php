@@ -97,6 +97,23 @@ HTML
     }
 
     /**
+    /**
+     * @Route("/symfony/run-command", name="symfony_run_command")
+     */
+    public function runCommandAction(Request $request)
+    {
+        /** @var ProducerInterface $producer */
+        $producer = $this->get('enqueue.producer');
+
+        $producer->sendCommand('run_command', 'app:run-from-controller');
+
+        return new Response(<<<HTML
+<p>Run command command has been sent</p>
+HTML
+        );
+    }
+
+    /**
      * @Route("/websocket/chat-demo", name="websocket_chat_demo")
      */
     public function websocketChatDemoAction(Request $request)

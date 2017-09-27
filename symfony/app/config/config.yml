@@ -178,6 +178,12 @@ services:
     tags:
         - { name: 'enqueue.client.processor' }
 
+  app.async.run_command:
+    class: 'AppBundle\Async\RunCommandProcessor'
+    arguments: ['%kernel.project_dir%']
+    tags:
+        - { name: 'enqueue.client.processor' }
+
   upload_picture_service:
       class: 'AppBundle\Consumer\UploadPictureConsumer'
 
