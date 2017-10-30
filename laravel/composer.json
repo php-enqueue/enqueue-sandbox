@@ -9,8 +9,14 @@
         "laravel/framework": "^5.4",
         "laravel/tinker": "~1.0",
         "enqueue/fs": "*@dev",
+        "enqueue/amqp-ext": "*@dev",
+        "enqueue/amqp-lib": "*@dev",
+        "enqueue/amqp-tools": "*@dev",
+        "enqueue/enqueue": "*@dev",
+        "enqueue/null": "*@dev",
         "enqueue/simple-client": "*@dev",
-        "enqueue/laravel-queue": "^0.6@dev"
+        "enqueue/laravel-queue": "^0.8@dev",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "dev-amqp-interop"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -115,6 +121,10 @@
         {
             "type": "path",
             "url": "../dev/pkg/async-event-dispatcher"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:formapro-forks/laravel-queue-rabbitmq.git"
         }
     ]
 }
