@@ -34,3 +34,13 @@ Route::get('/enqueue/test', function () {
 
     return 'EnqueueTest';
 });
+
+Route::get('/vyuldashev/test', function () {
+    $job = new \App\Jobs\EnqueueTest();
+    $job->onConnection('rabbitmq');
+    $job->delay = 10;
+
+    dispatch($job);
+
+    return 'QueueTest';
+});
