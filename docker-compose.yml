@@ -2,7 +2,28 @@ version: '3'
 
 services:
   sandbox:
-    build: { context: ., dockerfile: Dockerfile.sandbox }
+    image: 'enqueue/dev:latest'
+    entrypoint: '/entrypoint.sh'
+    working_dir: '/mqs/symfony'
+    restart: 'always'
+    depends_on:
+      - mysql
+      - rabbitmq
+      - elasticsearch
+    volumes:
+      - ./docker/container/php/cli.ini:/etc/php/7.1/cli/conf.d/1-sandbox_cli.ini
+      - ./docker/shared/:/shared
+      - ./:/mqs
+    env_file: 'symfony/app/config/.env'
+    environment:
+      - HISTFILE=/shared/.bash_history
+    ports:
+      - "80:80"
+
+  sandbox_consumer:
+    image: 'enqueue/dev:latest'
+    entrypoint: 'php ./bin/console enqueue:consume --setup-broker -vvv'
+    working_dir: '/mqs/symfony'
     restart: 'always'
     depends_on:
       - mysql
@@ -15,27 +36,10 @@ services:
     env_file: 'symfony/app/config/.env'
     environment:
       - HISTFILE=/shared/.bash_history
-    ports:
-      - "80:80"
-
-  sandbox_consumer:
-    build: { context: ., dockerfile: Dockerfile.sandbox }
-    entrypoint: 'php symfony/bin/console enqueue:consume --setup-broker -vvv'
-    restart: 'always'
-    depends_on:
-      - mysql
-      - rabbitmq
-    volumes:
-      - ./docker/container/php/cli.ini:/etc/php/7.0/cli/conf.d/1-sandbox_cli.ini
-      - ./docker/shared/:/shared
-      - ./:/mqs
-    env_file: 'symfony/app/config/.env'
-    environment:
-      - HISTFILE=/shared/.bash_history
 
   sandbox_laravel:
-    build: { context: ., dockerfile: Dockerfile.sandbox }
-    entrypoint: php artisan serve --host 0.0.0.0 --port=80
+    image: 'enqueue/dev:latest'
+    entrypoint: php artisan serve --host 0.0.0.0 --port=80 -vvv
     restart: 'always'
     working_dir: '/mqs/laravel'
     depends_on:
@@ -75,10 +79,16 @@ services:
       - RABBITMQ_DEFAULT_VHOST=mqs
 
   elasticsearch: 
-    build: { context: ., dockerfile: Dockerfile.elasticsearch } 
+    image: elasticsearch:2
     restart: 'always'
     ports: 
-      - "9201:9200"
+      - "9200:9200"
+
+#  elasticsearch: 
+#    image: elasticsearch:5
+#    restart: 'always'
+#    ports: 
+#      - "9200:9200"
 
 volumes:
   mysql-data:

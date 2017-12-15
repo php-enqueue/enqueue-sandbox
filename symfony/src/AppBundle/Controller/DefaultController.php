@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Async\JobQueueUniqueCommandProcessor;
 use Enqueue\AmqpExt\AmqpConnectionFactory;
 use Enqueue\Client\Message;
 use Enqueue\Client\ProducerInterface;
+use Enqueue\JobQueue\Doctrine\Entity\Job;
+use Enqueue\JobQueue\Doctrine\JobStorage;
 use Interop\Amqp\AmqpContext;
 use Interop\Amqp\AmqpTopic;
 use Liip\ImagineBundle\Async\ResolveCache;
@@ -137,6 +140,22 @@ HTML
         $producer = $this->get('enqueue.producer');
 
         $producer->sendCommand('run_command', 'app:run-from-controller');
+
+        return new Response(<<<HTML
+<p>Run command command has been sent</p>
+HTML
+        );
+    }
+
+    /**
+     * @Route("/job-queue/unique-command", name="job_queue_unique_command")
+     */
+    public function runJobQueueUniqueCommandAction(Request $request)
+    {
+        /** @var ProducerInterface $producer */
+        $producer = $this->get('enqueue.producer');
+
+        $producer->sendCommand(JobQueueUniqueCommandProcessor::COMMAND, 'someJobData');
 
         return new Response(<<<HTML
 <p>Run command command has been sent</p>

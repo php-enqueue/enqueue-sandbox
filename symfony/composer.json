@@ -26,14 +26,15 @@
         "enqueue/job-queue": "*@dev",
         "enqueue/test": "*@dev",
         "enqueue/null": "*@dev",
-        "queue-interop/amqp-interop": "^0.6",
-        "friendsofsymfony/elastica-bundle": "^3",
         "enqueue/elastica-bundle": "*@dev",
+        "friendsofsymfony/elastica-bundle": "^4",
         "fzaninotto/faker": "^1.6",
         "liip/imagine-bundle": "^2.0@dev",
         "knplabs/gaufrette": "^0.3",
         "knplabs/knp-gaufrette-bundle": "^0.4",
-        "php-amqplib/rabbitmq-bundle": "^1.12"
+        "php-amqplib/rabbitmq-bundle": "^1.12",
+        "ruflin/elastica": "3.2.3 as 2.99.0",
+        "pagerfanta/pagerfanta": "^1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -82,6 +83,18 @@
         {
             "type": "path",
             "url": "../dev/pkg/amqp-tools"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/amqp-bunny"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/amqp-lib"
+        },
+        {
+            "type": "path",
+            "url": "../dev/pkg/amqp-ext"
         },
         {
             "type": "path",

@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    fos_elastica.use_v5_api: true
 
 framework:
     #esi:             ~
@@ -58,6 +59,12 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        mappings:
+            EnqueueJobQueue:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/vendor/enqueue/job-queue/Doctrine/mapping'
+                prefix: 'Enqueue\JobQueue\Doctrine\Entity'
 
 enqueue:
     transport:
@@ -68,6 +75,7 @@ enqueue:
             user: '%rabbitmq_user%'
             pass: '%rabbitmq_password%'
             vhost: '%rabbitmq_vhost%'
+            qos_prefetch_count: 10
     client:
         prefix: 'mqs'
         app_name: 'enqueue'
@@ -75,7 +83,16 @@ enqueue:
         router_queue: 'router'
         default_processor_queue: 'default'
         traceable_producer: true
-    async_events: true
+    async_events: false
+    job: true
+
+enqueue_elastica:
+    doctrine:
+        queue_listeners:
+            -
+              index_name: 'enqueue'
+              type_name: 'blog'
+              model_class: 'AppBundle\Entity\Blog'
 
 fos_elastica:
     clients:
@@ -91,7 +108,7 @@ fos_elastica:
                         driver: orm
                         model: AppBundle\Entity\Blog
                         provider: ~
-                        listener: ~
+                        listener: { enabled: false }
                         finder: ~
 
 knp_gaufrette:
@@ -181,6 +198,12 @@ services:
   app.async.run_command:
     class: 'AppBundle\Async\RunCommandProcessor'
     arguments: ['%kernel.project_dir%']
+    tags:
+        - { name: 'enqueue.client.processor' }
+
+  app.async.job_queue_unique_command:
+    class: 'AppBundle\Async\JobQueueUniqueCommandProcessor'
+    arguments: ['@Enqueue\JobQueue\JobRunner']
     tags:
         - { name: 'enqueue.client.processor' }
 
