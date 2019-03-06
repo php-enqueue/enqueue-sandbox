@@ -1,5 +1,5 @@
 <?php
-use Interop\Queue\PsrProcessor;
+use Interop\Queue\Processor;
 
 require_once __DIR__.'/vendor/autoload.php';
 include __DIR__.'/config.php';
@@ -11,13 +11,13 @@ while (true) {
         $result = $asyncProcessor->process($message, $context);
 
         switch ((string) $result) {
-            case PsrProcessor::ACK:
+            case Processor::ACK:
                 $consumer->acknowledge($message);
                 break;
-            case PsrProcessor::REJECT:
+            case Processor::REJECT:
                 $consumer->reject($message);
                 break;
-            case PsrProcessor::REQUEUE:
+            case Processor::REQUEUE:
                 $consumer->reject($message, true);
                 break;
             default:
